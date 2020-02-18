@@ -80,8 +80,7 @@ resource "aws_api_gateway_deployment" "S3APIDeployment" {
   rest_api_id = aws_api_gateway_rest_api.RestApi.id
   stage_name = var.stage_name
   variables = {
-    api_pointed_at = var.api_url
-    ui_pointed_at = "${var.bucket} ${var.branch}"
+    ui_pointed_at = "${var.bucket} ${var.prefix}"
   }
   lifecycle {
     create_before_destroy = true
