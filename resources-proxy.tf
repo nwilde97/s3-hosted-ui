@@ -28,7 +28,7 @@ resource "aws_api_gateway_integration" "itemGetMethodIntegration" {
   type                    = "AWS"
   integration_http_method = "GET"
   credentials             = aws_iam_role.s3_api_gateyway_role.arn
-  uri                     = "arn:aws:apigateway:us-west-2:s3:path/${data.aws_s3_bucket.www.bucket}/branches/${var.branch}/{proxy}"
+  uri                     = "arn:aws:apigateway:us-west-2:s3:path/${data.aws_s3_bucket.www.bucket}/${var.prefix}/{proxy}"
   request_parameters = {
     "integration.request.path.proxy" = "method.request.path.proxy"
   }
