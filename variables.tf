@@ -24,6 +24,7 @@ variable bucket {
 variable prefix {
   description = "Prefix assigned to S3 resources, base path of app relative to this folder"
   type = string
+  default = "app"
 }
 
 variable stage_name {
