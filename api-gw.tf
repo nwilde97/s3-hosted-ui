@@ -6,13 +6,6 @@ DON'T CHANGE ANYTHING BELOW THIS LINE
 ========================================================================================
 */
 
-
-
-provider "aws" {
-  alias = "useast1"
-  region = "us-east-1"
-}
-
 data "aws_route53_zone" "Zone" {
   name = var.zone_name
 }
