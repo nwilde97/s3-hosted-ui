@@ -11,8 +11,8 @@ variable zone_name {
   type = string
 }
 
-variable cert_domain {
-  description = "The domain of the cert to be used for the API"
+variable ssl_certificate_arn {
+  description = "The ARN of the cert to be used for the API"
   type = string
 }
 

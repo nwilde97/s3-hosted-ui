@@ -6,16 +6,6 @@ DON'T CHANGE ANYTHING BELOW THIS LINE
 ========================================================================================
 */
 
-provider "aws" {
-  alias = "useast1"
-  region = "us-east-1"
-}
-
-data aws_acm_certificate cert {
-  domain = var.cert_domain
-  provider = aws.useast1
-}
-
 data "aws_route53_zone" "Zone" {
   name = var.zone_name
 }
@@ -89,9 +79,8 @@ resource "aws_api_gateway_deployment" "S3APIDeployment" {
 }
 
 resource "aws_api_gateway_domain_name" "api_domain_name" {
-  depends_on = [data.aws_acm_certificate.cert]
   domain_name = "${var.subdomain}.${var.zone_name}"
-  certificate_arn = data.aws_acm_certificate.cert.arn
+  certificate_arn = var.ssl_certificate_arn
 }
 
 resource "aws_api_gateway_base_path_mapping" "base_path" {
