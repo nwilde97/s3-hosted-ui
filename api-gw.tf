@@ -51,7 +51,7 @@ resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
 
 resource "aws_api_gateway_rest_api" "RestApi" {
   name = "${var.subdomain}.${var.zone_name}"
-  binary_media_types = var.media_types;
+  binary_media_types = var.media_types
 }
 
 resource "aws_api_gateway_deployment" "S3APIDeployment" {
