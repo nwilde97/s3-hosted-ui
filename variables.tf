@@ -32,3 +32,9 @@ variable stage_name {
   type = string
   default = "preprod"
 }
+
+variable media_types {
+  description = "List of binary media types to add to the api"
+  type = list(string)
+  default = ["font/woff", "image/png", "image/webp", "image/svg+xml", "font/ttf", "font/eot"]
+}

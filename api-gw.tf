@@ -1,11 +1,3 @@
-/*
-========================================================================================
-
-DON'T CHANGE ANYTHING BELOW THIS LINE
-
-========================================================================================
-*/
-
 data "aws_route53_zone" "Zone" {
   name = var.zone_name
 }
@@ -14,7 +6,6 @@ data "aws_s3_bucket" "www" {
   bucket = var.bucket
 }
 
-# Create S3 Full Access Policy
 resource "aws_iam_policy" "s3_policy" {
   name = "${var.subdomain}-s3-policy"
   description = "Policy for allowing all S3 Actions"
@@ -33,11 +24,9 @@ resource "aws_iam_policy" "s3_policy" {
 EOF
 }
 
-# Create API Gateway Role
 resource "aws_iam_role" "s3_api_gateyway_role" {
   name = "${var.subdomain}-s3-api-gateyway-role"
 
-  # Create Trust Policy for API Gateway
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -55,7 +44,6 @@ resource "aws_iam_role" "s3_api_gateyway_role" {
   EOF
 }
 
-# Attach S3 Access Policy to the API Gateway Role
 resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
   role = aws_iam_role.s3_api_gateyway_role.name
   policy_arn = aws_iam_policy.s3_policy.arn
@@ -63,7 +51,7 @@ resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
 
 resource "aws_api_gateway_rest_api" "RestApi" {
   name = "${var.subdomain}.${var.zone_name}"
-  binary_media_types = ["font/woff", "image/png", "image/webp", "image/svg+xml", "font/ttf", "font/eot"]
+  binary_media_types = var.media_types;
 }
 
 resource "aws_api_gateway_deployment" "S3APIDeployment" {
